@@ -6,7 +6,7 @@ const openweatherkey = process.env.OPENWEATHERKEY;
 
 console.log(openweatherkey);
 
-app.use(express.static(path.resolve(__dirname, "views")));
+app.use(express.static(path.resolve(__dirname, "public")));
 
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
