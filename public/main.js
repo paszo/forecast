@@ -6,7 +6,7 @@ $(function() {
         event.preventDefault();
 
         var zipCode = $.trim($zip.val());
-        $h1.text("Laoding...");
+        $h1.text("Loading...");
 
         var request = $.ajax({
             url: "/" + zipCode,
@@ -14,8 +14,9 @@ $(function() {
         });
 
         request.done(function(data) {
+            console.log(data);
             var temperature = data.temperature;
-            $h1.thml("It is " + temperature + "&#176; in " + zipCode + ".");
+            $h1.html("It is " + temperature + "&#176; in " + zipCode + ".");
         });
 
         request.fail(function() {
