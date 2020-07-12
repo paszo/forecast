@@ -1,0 +1,10 @@
+html {
+    display: table;
+    width: 100%;
+    heigth: 100%;
+}
+body {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
