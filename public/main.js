@@ -1,27 +1,23 @@
-$(function() {
-    var $h1 = $("h1");
-    var $zip = $("input[name='zip']");
+const zipForm = document.getElementById("zip-form");
+const zipInput = document.getElementById("zip");
+const h1 = document.getElementById("h1");
 
-    $("form").on("submit", function(event) {
-        event.preventDefault();
+zipForm.onsubmit = event => {
+    event.preventDefault();
+    const zip = zipInput.value.trim();
 
-        var zipCode = $.trim($zip.val());
-        $h1.text("Loading...");
+    fetch("/" + zip, {method: "GET"})
+        .then(res => res.json())
+        .then(res => {
+            const temperature = res.temperature;
+            h1.innerHTML = `It is ${temperature} &#176; in ${zip} .`;
+        })
+        .catch(() => {
+            h1.innerHTML = `Error !`;
+        })
 
-        var request = $.ajax({
-            url: "/" + zipCode,
-            dataType: "json"
-        });
+    h1.innerHTML = 'Loading ...';
+    zipInput.value = "";
+    zipInput.focus();
 
-        request.done(function(data) {
-            console.log(data);
-            var temperature = data.temperature;
-            $h1.html("It is " + temperature + "&#176; in " + zipCode + ".");
-        });
-
-        request.fail(function() {
-            $h1.text("Error!");
-        });
-
-    });
-});
+}
